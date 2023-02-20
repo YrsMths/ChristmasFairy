@@ -1,0 +1,17 @@
+﻿<views:BasicWindow
+        xmlns:views="clr-namespace:ZYM.Development.Views"
+        x:Class="ZYM.Development.Views.Christmas.BrokenNeonWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ZYM.Development"
+        xmlns:wpfdev="clr-namespace:Community.Controls;assembly=Community"
+        xmlns:Properties="clr-namespace:ZYM.Development.Properties"
+        mc:Ignorable="d"
+        Height="{x:Static local:App.Height}" Width="{x:Static local:App.Wdith}"
+        Title="BrokenNeonWindow" WindowStyle="None" AllowsTransparency="True" Background="Transparent" WindowStartupLocation="CenterScreen" FontSize="150">
+    <Grid>
+        <wpfdev:BrokenNeonText x:Name="BrokenNeonText" StrokeThickness="8" Text="{Binding SantasWord, Source={x:Static Properties:Settings.Default}, UpdateSourceTrigger=PropertyChanged}"/>
+    </Grid>
+</views:BasicWindow>

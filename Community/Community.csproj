@@ -1,0 +1,156 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{B08CA293-64E3-4BFC-BE00-FA8BB2A816C5}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Community</RootNamespace>
+    <AssemblyName>Community</AssemblyName>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <Deterministic>true</Deterministic>
+    <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <LangVersion>7.1</LangVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>..\OutPut\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <LangVersion>7.1</LangVersion>
+  </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject />
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xaml" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+    <Reference Include="WindowsBase" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Controls\Button\ButtonEx.cs" />
+    <Compile Include="Controls\DogsClock\DogsClock.cs" />
+    <Compile Include="Controls\WheresWally\WheresWally.cs" />
+    <Compile Include="Controls\Line\CurveLine.cs" />
+    <Compile Include="Controls\NavigateMenu\NavigateMenu.cs" />
+    <Compile Include="Controls\NeonText\BrokenNeonText.cs" />
+    <Compile Include="Controls\NeonText\NeonText.cs" />
+    <Compile Include="Controls\NotifyIcon\NotifyIcon.cs" />
+    <Compile Include="Controls\NotifyIcon\Runtimes\Gdi32Interop.cs" />
+    <Compile Include="Controls\NotifyIcon\Runtimes\Interop\BitmapHandle.cs" />
+    <Compile Include="Controls\NotifyIcon\Runtimes\Interop\BITMAPINFO.cs" />
+    <Compile Include="Controls\NotifyIcon\Runtimes\Interop\CommonHandles.cs" />
+    <Compile Include="Controls\NotifyIcon\Runtimes\Interop\HandleCollector.cs" />
+    <Compile Include="Controls\NotifyIcon\Runtimes\Interop\IconHandle.cs" />
+    <Compile Include="Controls\NotifyIcon\Runtimes\Interop\WpfSafeHandle.cs" />
+    <Compile Include="Controls\NotifyIcon\Runtimes\Kernel32Interop.cs" />
+    <Compile Include="Controls\NotifyIcon\Runtimes\Shell32Interop.cs" />
+    <Compile Include="Controls\NotifyIcon\Runtimes\Shell32\NIFFlags.cs" />
+    <Compile Include="Controls\NotifyIcon\Runtimes\Shell32\NIIFFlags.cs" />
+    <Compile Include="Controls\NotifyIcon\Runtimes\Shell32\NISFlags.cs" />
+    <Compile Include="Controls\NotifyIcon\Runtimes\Shell32\NotifyCommand.cs" />
+    <Compile Include="Controls\NotifyIcon\Runtimes\Shell32\NotifyFlags.cs" />
+    <Compile Include="Controls\NotifyIcon\Runtimes\Shell32\NOTIFYICONDATA.cs" />
+    <Compile Include="Controls\NotifyIcon\Runtimes\User32Interop.cs" />
+    <Compile Include="Controls\NotifyIcon\Runtimes\User32\CS.cs" />
+    <Compile Include="Controls\NotifyIcon\Runtimes\User32\ImageType.cs" />
+    <Compile Include="Controls\NotifyIcon\Runtimes\User32\LoadImageFlags.cs" />
+    <Compile Include="Controls\NotifyIcon\Runtimes\User32\WM.cs" />
+    <Compile Include="Controls\NotifyIcon\Runtimes\User32\WNDCLASSEX.cs" />
+    <Compile Include="Controls\NotifyIcon\Runtimes\User32\WndProc.cs" />
+    <Compile Include="Controls\NotifyIcon\Runtimes\User32\WS.cs" />
+    <Compile Include="Controls\NotifyIcon\Runtimes\User32\WS_EX.cs" />
+    <Compile Include="Controls\Line\PixelLine.cs" />
+    <Compile Include="Controls\DispreadBox\DispreadBox.cs" />
+    <Compile Include="Controls\SingingMariah\SingingMariah.cs" />
+    <Compile Include="Controls\SnowSky\Snowflake.cs" />
+    <Compile Include="Controls\SnowSky\SnowSky.cs" />
+    <Compile Include="Controls\SantaSky\SantaSky.cs" />
+    <Compile Include="Controls\Text\ShapeText.cs" />
+    <Compile Include="Helpers\Basic\RadomBasic.cs" />
+    <Compile Include="Helpers\ColorHelpers.cs" />
+    <Compile Include="Helpers\ControlsHelper.cs" />
+    <Compile Include="Helpers\RandomHelper.cs" />
+    <Compile Include="Helpers\Win32ApiHelper.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Themes\Styles\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="Themes\Basic\Colors.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Themes\Basic\ControlBasic.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Themes\Basic\Font.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Themes\Basic\Geometrys.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Themes\Generic.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\BrokenNeonTextDictionary.xaml">
+      <SubType>Designer</SubType>
+      <Generator>XamlIntelliSenseFileGenerator</Generator>
+    </Page>
+    <Page Include="Themes\ButtonExDictionary.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Themes\DispreadBoxDictionary.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Themes\NeonTextDictionary.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Themes\SantaSkyDictionary.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Themes\SingingMariahDictionary.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Themes\SnowSkyDictionary.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>
