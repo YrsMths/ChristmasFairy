@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Community.Controls.Runtimes;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,6 +11,10 @@ namespace ZYM.Development.Views
     public abstract class BasicWindow : Window, IDisposable
     {
         public virtual void Refresh() { }
-        public void Dispose() { }
+        public void Dispose()
+        {
+            User32Interop.DestroyWindow(this.GetHandle());
+            GC.SuppressFinalize(this);
+        }
     }
 }

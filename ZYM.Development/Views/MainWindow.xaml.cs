@@ -43,6 +43,7 @@ namespace ZYM.Development.Views
             if (type != null)
             {
                 window = System.Activator.CreateInstance(type) as BasicWindow;
+                window.Loaded += Desktop_Loaded;
                 window.Show();
             }
             else
@@ -68,7 +69,9 @@ namespace ZYM.Development.Views
         {
             if (null != window)
             {
+                window.Loaded -= Desktop_Loaded;
                 window.Close();
+                (window as BasicWindow).Dispose();
                 window = null;
                 GC.Collect();
             }
@@ -77,7 +80,6 @@ namespace ZYM.Development.Views
                             select t).ToArray();
             window = System.Activator.CreateInstance(types[_random.Next(0, types.Length)]) as BasicWindow;
             if (null == window) return;
-            window.Loaded -= Desktop_Loaded;
             window.Loaded += Desktop_Loaded;
             window.Owner = this;
             window.Show();
