@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Community.Controls.Base;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -19,7 +20,7 @@ using System.Windows.Threading;
 namespace Community.Controls
 {
     [TemplatePart(Name = CanvasTemplateName, Type = typeof(Canvas))]
-    public class SingingMariah : Control
+    public class SingingMariah : ControlBase
     {
         private const string CanvasTemplateName = "PART_Canvas";
 
@@ -65,12 +66,14 @@ namespace Community.Controls
             base.OnApplyTemplate();
             _canvas = GetTemplateChild(CanvasTemplateName) as Canvas;
             if (_canvas == null) return;
-            Loaded += (s, e) =>
-            {
-                var timer = new DispatcherTimer { Interval = TimeSpan.FromMilliseconds(200) };
-                timer.Tick += delegate { AllIWantForChrismasIsYou(); timer.Interval = TimeSpan.FromSeconds(_random.Next(10, 20)); };
-                timer.Start();
-            };
+            Loaded += _this_Loaded;
+        }
+
+        private void _this_Loaded(object s, RoutedEventArgs e)
+        {
+            var timer = new DispatcherTimer { Interval = TimeSpan.FromMilliseconds(200) };
+            timer.Tick += delegate { AllIWantForChrismasIsYou(); timer.Interval = TimeSpan.FromSeconds(_random.Next(10, 20)); };
+            timer.Start();
         }
         
         private void AllIWantForChrismasIsYou()
@@ -243,6 +246,25 @@ namespace Community.Controls
                     break;
             }
             return story;
+        }
+
+        /// <summary>
+        /// 重写的Dispose方法
+        /// </summary>
+        /// <param name="disposing"></param>
+        protected override void Dispose(bool disposing)
+        {
+            if (disposed)
+            {
+                return;
+            }
+            //清理托管资源
+            if (disposing)
+            {
+                Loaded -= _this_Loaded;
+            }
+            //告诉自己已经被释放
+            disposed = true;
         }
     }
 }

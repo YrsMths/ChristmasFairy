@@ -8,9 +8,9 @@
         xmlns:local="clr-namespace:ZYM.Development"
         xmlns:wpfdev="clr-namespace:Community.Controls;assembly=Community"
         mc:Ignorable="d"
-        Height="{x:Static local:App.Height}" Width="{x:Static local:App.Wdith}"
-        Title="SnowSkyWindow" WindowStyle="None" AllowsTransparency="True" Background="Transparent" WindowStartupLocation="CenterScreen">
+        Height="{x:Static local:App.Height}" Width="{x:Static local:App.Width}"
+        Title="SnowSkyWindow" WindowStyle="None" AllowsTransparency="True" Background="Transparent" WindowStartupLocation="CenterOwner">
     <Grid Background="Transparent">
-        <wpfdev:SnowSky/>
+        <wpfdev:SnowSky x:Name="snowSky"/>
     </Grid>
 </views:BasicWindow>

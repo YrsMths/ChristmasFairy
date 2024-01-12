@@ -1,4 +1,5 @@
-﻿using Community.Helpers;
+﻿using Community.Controls.Base;
+using Community.Helpers;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -23,7 +24,7 @@ namespace Community.Controls
     [TemplatePart(Name = TextBlockTemplateName, Type = typeof(TextBlock))]
     [TemplatePart(Name = CanvasTemplateName, Type = typeof(Canvas))]
     [TemplatePart(Name = GlowCanvasTemplateName, Type = typeof(Canvas))]
-    public class BrokenNeonText : Control
+    public class BrokenNeonText : ControlBase
     {
         private const string TextBlockTemplateName = "PART_TextBlock";
         private const string CanvasTemplateName = "PART_Canvas";
@@ -68,20 +69,26 @@ namespace Community.Controls
             _canvas = GetTemplateChild(CanvasTemplateName) as Canvas;
             _glowCanvas = GetTemplateChild(GlowCanvasTemplateName) as Canvas;
             _textBlock = GetTemplateChild(TextBlockTemplateName) as TextBlock;
-            Loaded += (s, e) =>
-            {
-                Init();
-                Hook();
-            };
-
-            Unloaded += (s, e) =>
-            {
-                Unhook();
-            };
+            Loaded += _this_Loaded;
+            Unloaded += _this_UnLoaded;
         }
-        
+
+        private void _this_Loaded(object s, RoutedEventArgs e)
+        {
+            Init();
+            Hook();
+        }
+
+        private void _this_UnLoaded(object s, RoutedEventArgs e)
+        {
+            Unhook();
+        }
+
+        DispatcherTimer timer;
+
         public void Init()
         {
+            timer?.Stop();
             _textBlock.Inlines.Clear();
             _canvas.Children.Clear();
             _glowCanvas.Children.Clear();
@@ -116,11 +123,12 @@ namespace Community.Controls
                     Stroke = new SolidColorBrush(color),
                     StrokeDashArray = new DoubleCollection() { 50, 2 },
                     StrokeThickness = StrokeThickness,
-                    Effect = new BlurEffect() { Radius = 5 },
+                    Effect = new BlurEffect() { Radius = 4 },
                     StrokeStartLineCap = PenLineCap.Round,
                     StrokeEndLineCap = PenLineCap.Round,
                     StrokeDashCap = PenLineCap.Round
                 };
+                //发光
                 Path glowPath = new Path()
                 {
                     Data = GetGeometry(((System.Windows.Documents.Run)inline).Text.ToString(), new Point()),
@@ -141,7 +149,7 @@ namespace Community.Controls
                 _paths[path] = false;
                 _glowPaths[path] = glowPath;
 
-                var timer = new DispatcherTimer { Interval = TimeSpan.FromSeconds(_random.Next(5, 10)) };
+                timer = new DispatcherTimer { Interval = TimeSpan.FromSeconds(_random.Next(5, 10)) };
                 timer.Tick += delegate { Flash(); timer.Interval = TimeSpan.FromSeconds(_random.Next(5, 10)); };
                 timer.Start();
             }
@@ -191,7 +199,7 @@ namespace Community.Controls
             foreach (var child in _canvas.Children)
             {
                 var path = child as Path;
-                if (path == null) continue;
+                if (path == null || !_paths.ContainsKey(path) || !_glowPaths.ContainsKey(path)) continue;
                 Point lt = path.PointToScreen(new Point(0, 0));
                 Rect port = new Rect(lt.X, lt.Y, path.ActualWidth, path.ActualHeight);
                 if (port.Contains(new Point(point.X, point.Y)))
@@ -289,6 +297,29 @@ namespace Community.Controls
                 MouseOver(point);
             }
             return Win32ApiHelper.CallNextHookEx(hMouseHook, nCode, wParam, lParam);
+        }
+
+
+
+        /// <summary>
+        /// 重写的Dispose方法
+        /// </summary>
+        /// <param name="disposing"></param>
+        protected override void Dispose(bool disposing)
+        {
+            if (disposed)
+            {
+                return;
+            }
+            //清理托管资源
+            if (disposing)
+            {
+                Unhook();
+                Loaded -= _this_Loaded;
+                Unloaded -= _this_UnLoaded;
+            }
+            //告诉自己已经被释放
+            disposed = true;
         }
     }
 }

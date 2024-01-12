@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Community.Controls.Base;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -18,13 +19,14 @@ using System.Windows.Threading;
 namespace Community.Controls
 {
     [TemplatePart(Name = CanvasTemplateName, Type = typeof(Canvas))]
-    public class SnowSky : Control
+    public class SnowSky : ControlBase
     {
         private const string CanvasTemplateName = "PART_Canvas";
 
         public static readonly DependencyProperty IconProperty =
             DependencyProperty.Register("Icon", typeof(ImageSource), typeof(SnowSky), new PropertyMetadata(null));
 
+        private DispatcherTimer _addSnowFlakeTimer = new DispatcherTimer { Interval = TimeSpan.FromMilliseconds(300) };
         private readonly Random _random = new Random((int)DateTime.Now.Ticks);
 
         private Canvas _canvas;
@@ -45,12 +47,19 @@ namespace Community.Controls
             base.OnApplyTemplate();
             _canvas = GetTemplateChild(CanvasTemplateName) as Canvas;
             if (_canvas == null) return;
-            Loaded += (s, e) =>
-            {
-                var timer = new DispatcherTimer { Interval = TimeSpan.FromMilliseconds(300) };
-                timer.Tick += delegate { AddSnowflake(); };
-                timer.Start();
-            };
+            Loaded += _this_Loaded;
+        }
+
+        private void _this_Loaded(object s, RoutedEventArgs e)
+        {
+            _addSnowFlakeTimer.Interval = TimeSpan.FromMilliseconds(300);
+            _addSnowFlakeTimer.Tick += _addSnowFlakeTimer_Tick;
+            _addSnowFlakeTimer.Start();
+        }
+
+        private void _addSnowFlakeTimer_Tick(object sender, EventArgs e)
+        {
+            AddSnowflake();
         }
 
         private void AddSnowflake()
@@ -82,9 +91,29 @@ namespace Community.Controls
             Storyboard.SetTargetProperty(animation, new PropertyPath("RenderTransform.Children[0].Y"));
 
             var story = new Storyboard();
-            story.Completed += (sender, e) => _canvas.Children.Remove(snowflake);
+            story.Completed += (sender, e) => { _canvas.Children.Remove(snowflake); snowflake.ClearEvents(); };
             story.Children.Add(animation);
             snowflake.Loaded += (sender, args) => story.Begin();
+        }
+
+        /// <summary>
+        /// 重写的Dispose方法
+        /// </summary>
+        /// <param name="disposing"></param>
+        protected override void Dispose(bool disposing)
+        {
+            if (disposed)
+            {
+                return;
+            }
+            //清理托管资源
+            if (disposing)
+            {
+                _addSnowFlakeTimer.Tick -= _addSnowFlakeTimer_Tick;
+                Loaded -= _this_Loaded;
+            }
+            //告诉自己已经被释放
+            disposed = true;
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Community.Controls.Base;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -21,7 +22,7 @@ namespace Community.Controls
     [TemplatePart(Name = HourTemplateName, Type = typeof(Canvas))]
     [TemplatePart(Name = HourTemplateName, Type = typeof(Canvas))]
     [TemplatePart(Name = HourTemplateName, Type = typeof(Canvas))]
-    public class DogsClock : Control
+    public class DogsClock : ControlBase
     {
         private const string CanvasTemplateName = "PART_Canvas";
         private const string HourTemplateName = "PART_HourTextBlock";

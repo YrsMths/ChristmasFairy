@@ -16,6 +16,9 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using ZYM.Development.Views.Christmas;
+using ZYM.Development.Views.Daily;
+using ZYM.Development.Views.Hallowee;
+using ZYM.Development.Views.Test;
 
 namespace ZYM.Development.Views
 {
@@ -76,7 +79,7 @@ namespace ZYM.Development.Views
                 GC.Collect();
             }
             Type[] types = (from t in Assembly.Load("ZYM.Development").GetTypes()
-                    where t.IsClass && t.Namespace == "ZYM.Development.Views.Christmas"
+                    where t.IsClass && (t.Namespace == $"ZYM.Development.Views.{ControlsHelper.FestvialType}" || t.Namespace == $"ZYM.Development.Views.Daily")
                             select t).ToArray();
             window = System.Activator.CreateInstance(types[_random.Next(0, types.Length)]) as BasicWindow;
             if (null == window) return;

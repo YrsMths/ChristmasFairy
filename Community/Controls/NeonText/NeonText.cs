@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Community.Controls.Base;
+using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
@@ -20,7 +21,7 @@ namespace Community.Controls
     [TemplatePart(Name = Path1TemplateName, Type = typeof(Path))]
     [TemplatePart(Name = Path2TemplateName, Type = typeof(Path))]
     [TemplatePart(Name = Path3TemplateName, Type = typeof(Path))]
-    public class NeonText : Control
+    public class NeonText : ControlBase
     {
         private const string Path1TemplateName = "PART_Path1";
         private const string Path2TemplateName = "PART_Path2";
@@ -113,10 +114,12 @@ namespace Community.Controls
             _path1 = GetTemplateChild(Path1TemplateName) as Path;
             _path2 = GetTemplateChild(Path2TemplateName) as Path;
             _path3 = GetTemplateChild(Path3TemplateName) as Path;
-            Loaded += (s, e) =>
-            {
-                StartRolling();
-            };
+            Loaded += _this_Loaded;
+        }
+
+        private void _this_Loaded(object s, RoutedEventArgs e)
+        {
+            StartRolling();
         }
 
         protected override Size MeasureOverride(Size availableSize)
@@ -169,6 +172,25 @@ namespace Community.Controls
             _height = formattedText.Height;
             _width = formattedText.Width;
             _textGeometry = formattedText.BuildGeometry(new Point());
+        }
+
+        /// <summary>
+        /// 重写的Dispose方法
+        /// </summary>
+        /// <param name="disposing"></param>
+        protected override void Dispose(bool disposing)
+        {
+            if (disposed)
+            {
+                return;
+            }
+            //清理托管资源
+            if (disposing)
+            {
+                Loaded -= _this_Loaded;
+            }
+            //告诉自己已经被释放
+            disposed = true;
         }
     }
 }

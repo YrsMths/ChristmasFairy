@@ -29,9 +29,11 @@
     <IsWebBootstrapper>false</IsWebBootstrapper>
     <UseApplicationTrust>false</UseApplicationTrust>
     <BootstrapperEnabled>true</BootstrapperEnabled>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <PlatformTarget>x64</PlatformTarget>
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -39,7 +41,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <Prefer32Bit>false</Prefer32Bit>
+    <Prefer32Bit>true</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -77,17 +79,23 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Views\BarBie\BarbieWindow.xaml.cs">
+      <DependentUpon>BarbieWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\BasicWindow\BasicWindow.cs" />
-    <Compile Include="Views\Christmas\BrokenNeonWindow.xaml.cs">
+    <Compile Include="Views\Daily\BrokenNeonWindow.xaml.cs">
       <DependentUpon>BrokenNeonWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Christmas\WheresWallyWindow.xaml.cs">
+    <Compile Include="Views\Daily\CrystalBallWindow.xaml.cs">
+      <DependentUpon>CrystalBallWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Daily\WheresWallyWindow.xaml.cs">
       <DependentUpon>WheresWallyWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Christmas\NeonWindow.xaml.cs">
+    <Compile Include="Views\Daily\NeonWindow.xaml.cs">
       <DependentUpon>NeonWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Christmas\OpenTheGiftWindow.xaml.cs">
+    <Compile Include="Views\Daily\OpenTheGiftWindow.xaml.cs">
       <DependentUpon>OpenTheGiftWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Christmas\SingingMariahWindow.xaml.cs">
@@ -96,10 +104,25 @@
     <Compile Include="Views\Christmas\SnowSkyWindow.xaml.cs">
       <DependentUpon>SnowSkyWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Christmas\SantaSkyWindow.xaml.cs">
+    <Compile Include="Views\Daily\SantaSkyWindow.xaml.cs">
       <DependentUpon>SantaSkyWindow.xaml</DependentUpon>
     </Compile>
-    <Page Include="Views\Christmas\BrokenNeonWindow.xaml">
+    <Compile Include="Views\Test\TestWindow.xaml.cs">
+      <DependentUpon>TestWindow.xaml</DependentUpon>
+    </Compile>
+    <Page Include="Views\BarBie\BarbieWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Daily\BrokenNeonWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Daily\CrystalBallWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Hallowee\TypeWriterWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -120,6 +143,9 @@
     <Compile Include="Models\NavigateMenuModel.cs" />
     <Compile Include="ViewModels\MainVM.cs" />
     <Compile Include="ViewModels\ViewModelBase.cs" />
+    <Compile Include="Views\Hallowee\TypeWriterWindow.xaml.cs">
+      <DependentUpon>TypeWriterWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\SantaWindow.xaml.cs">
       <DependentUpon>SantaWindow.xaml</DependentUpon>
     </Compile>
@@ -127,15 +153,15 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="Views\Christmas\WheresWallyWindow.xaml">
+    <Page Include="Views\Daily\WheresWallyWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>XamlIntelliSenseFileGenerator</Generator>
     </Page>
-    <Page Include="Views\Christmas\NeonWindow.xaml">
+    <Page Include="Views\Daily\NeonWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\Christmas\OpenTheGiftWindow.xaml">
+    <Page Include="Views\Daily\OpenTheGiftWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -147,7 +173,11 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\Christmas\SantaSkyWindow.xaml">
+    <Page Include="Views\Daily\SantaSkyWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Test\TestWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -188,16 +218,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Converters\" />
-    <Folder Include="Views\Desktop\" />
-    <Folder Include="Views\Hallowee\" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Images\deer.png" />
-    <Resource Include="Images\santa.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Images\bat.png" />
-    <Resource Include="Images\bell.png" />
+    <Folder Include="Theme\" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.6.1">
@@ -230,25 +251,6 @@
     <Resource Include="Images\back_stars2.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Images\christmas_bell.png" />
-    <Resource Include="Images\christmas_candy.png" />
-    <Resource Include="Images\christmas_crutch.png" />
-    <Resource Include="Images\christmas_deer.png" />
-    <Resource Include="Images\christmas_fruit.png" />
-    <Resource Include="Images\christmas_garland.png" />
-    <Resource Include="Images\christmas_gift.png" />
-    <Resource Include="Images\christmas_gingerbreadman.png" />
-    <Resource Include="Images\christmas_glove.png" />
-    <Resource Include="Images\christmas_hat.png" />
-    <Resource Include="Images\christmas_sled.png" />
-    <Resource Include="Images\christmas_snowman.png" />
-    <Resource Include="Images\christmas_sock.png" />
-    <Resource Include="Images\christmas_spirit.png" />
-    <Resource Include="Images\christmas_star.png" />
-    <Resource Include="Images\christmas_tree.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Images\eggplant.png" />
     <Resource Include="Images\flower.png" />
   </ItemGroup>
   <ItemGroup>

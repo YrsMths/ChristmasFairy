@@ -1,0 +1,67 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:local="clr-namespace:Community.Controls"
+                    xmlns:basic="clr-namespace:Community.Themes.Basic">
+    <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="/Community;component/Themes/Basic/ControlBasic.xaml"/>
+    </ResourceDictionary.MergedDictionaries>
+    <Style TargetType="{x:Type local:ThemeControl}">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type local:ThemeControl}">
+                    <ItemsControl ItemsSource="{Binding ItemsSource,RelativeSource={RelativeSource AncestorType=local:ThemeControl}}">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <RadioButton Height="{Binding Size,RelativeSource={RelativeSource AncestorType=local:ThemeControl}}" Width="{Binding Size,RelativeSource={RelativeSource AncestorType=local:ThemeControl}}" Margin="4,0"
+                                         Cursor="Hand" 
+                                         IsChecked="{Binding IsChecked}">
+                                    <RadioButton.Style>
+                                        <Style TargetType="{x:Type RadioButton}">
+                                            <Setter Property="Template">
+                                                <Setter.Value>
+                                                    <ControlTemplate TargetType="{x:Type RadioButton}">
+                                                        <Border x:Name="PART_Border"
+                                                            Padding="2" 
+                                                            BorderThickness="0"
+                                                            BorderBrush="{Binding Color}">
+                                                            <Grid Background="{x:Null}">
+                                                                <Image x:Name="PART_Image" Source="{Binding Image}" 
+                                                                       Height="{Binding Size,RelativeSource={RelativeSource AncestorType=local:ThemeControl}}"
+                                                                       Width="{Binding Size,RelativeSource={RelativeSource AncestorType=local:ThemeControl}}"/>
+                                                                <Path Data="{StaticResource PathCheckMark}"
+                                                                      Stretch="Fill" Fill="{Binding Color}"
+                                                                      VerticalAlignment="Bottom"
+                                                                      HorizontalAlignment="Right"
+                                                                      Height="10" Width="12"
+                                                                      Margin="0,0,4,4"
+                                                                      Visibility="{Binding IsChecked,Converter={StaticResource bool2VisibilityConverter}}"/>
+                                                            </Grid>
+                                                        </Border>
+                                                        <ControlTemplate.Triggers>
+                                                            <Trigger Property="IsMouseOver" Value="True">
+                                                                <Setter Property="Opacity" Value=".8" TargetName="PART_Image"/>
+                                                                <Setter Property="BorderThickness" Value="2" TargetName="PART_Border"/>
+                                                            </Trigger>
+                                                            <Trigger Property="IsChecked" Value="True">
+                                                                <Setter Property="BorderThickness" Value="2" TargetName="PART_Border"/>
+                                                            </Trigger>
+                                                        </ControlTemplate.Triggers>
+                                                    </ControlTemplate>
+                                                </Setter.Value>
+                                            </Setter>
+                                        </Style>
+                                    </RadioButton.Style>
+                                </RadioButton>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <WrapPanel/>
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+                    </ItemsControl>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+</ResourceDictionary>

@@ -1,0 +1,27 @@
+﻿<views:BasicWindow
+        xmlns:views="clr-namespace:ZYM.Development.Views"
+        x:Class="ZYM.Development.Views.Test.TestWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ZYM.Development"
+        xmlns:wpfdev="clr-namespace:Community.Controls;assembly=Community"
+        mc:Ignorable="d"
+        Title="TestWindow" WindowStyle="None" Width="430" Height="430" WindowStartupLocation="CenterScreen" AllowsTransparency="True" Background="Transparent" Loaded="BasicWindow_Loaded">
+    <Grid>
+        <wpfdev:Pentacle x:Name="pentacle" Radius="200" NumofAngle="60" UnitAngle="60" Fill="{wpfdev:SequinBrush Color=#ddd44d, CountX=500, CountY=500}">
+            <!--<Rectangle Width="400" Height="400">
+            <Rectangle.Fill>
+                <LinearGradientBrush StartPoint="0,0.5" EndPoint="0.5,0">
+                    <GradientStop Color="#50FFFFFF" Offset="0"/>
+                    <GradientStop Color="#FFFFFF" Offset="0.5"/>
+                    <GradientStop Color="#50FFFFFF" Offset="1"/>
+                </LinearGradientBrush>
+            </Rectangle.Fill>
+        </Rectangle>-->
+        </wpfdev:Pentacle>
+        <Image x:Name="image" Stretch="Uniform"/>
+    </Grid>
+    
+</views:BasicWindow>

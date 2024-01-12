@@ -1,4 +1,5 @@
-﻿using Community.Helpers;
+﻿using Community.Controls.Base;
+using Community.Helpers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,7 +22,7 @@ namespace Community.Controls
     [TemplatePart(Name = TopImageTemplateName, Type = typeof(Image))]
     [TemplatePart(Name = BottomImageTemplateName, Type = typeof(Image))]
     [TemplatePart(Name = EllipseGeometryTemplateName, Type = typeof(EllipseGeometry))]
-    public class WheresWally : Control
+    public class WheresWally : ControlBase
     {
         private const string TopImageTemplateName = "PART_TopImage";
         private const string BottomImageTemplateName = "PART_BottomImage";
@@ -66,17 +67,20 @@ namespace Community.Controls
             _ellipseGeometry2 = GetTemplateChild(EllipseGeometry2TemplateName) as EllipseGeometry;
             if (_topImage == null || _bottomImage == null || _ellipseGeometry == null) return;
             Hook();
-            
-            Loaded += (s, e) =>
-            {
-                IntPtr hwnd = new WindowInteropHelper(Window.GetWindow(this)).Handle;
-                Win32ApiHelper.ClientToScreen(hwnd, ref relativePoint);
-            };
 
-            Unloaded += (s, e) =>
-            {
-                Unhook();
-            };
+            Loaded += _this_Loaded;
+            Unloaded += _this_UnLoaded;
+        }
+
+        private void _this_Loaded(object s, RoutedEventArgs e)
+        {
+            IntPtr hwnd = new WindowInteropHelper(Window.GetWindow(this)).Handle;
+            Win32ApiHelper.ClientToScreen(hwnd, ref relativePoint);
+        }
+
+        private void _this_UnLoaded(object s, RoutedEventArgs e)
+        {
+            Unhook();
         }
 
         private const int WM_MOUSEMOVE = 0x0200;
@@ -115,6 +119,29 @@ namespace Community.Controls
                     _ellipseGeometry.Center = new Point(point.X - relativePoint.X, point.Y - relativePoint.Y);
             }
             return Win32ApiHelper.CallNextHookEx(hMouseHook, nCode, wParam, lParam);
+        }
+
+        /// <summary>
+        /// 重写的Dispose方法
+        /// </summary>
+        /// <param name="disposing"></param>
+        protected override void Dispose(bool disposing)
+        {
+            if (disposed)
+            {
+                return;
+            }
+            //清理托管资源
+            if (disposing)
+            {
+                Unhook();
+                Loaded -= _this_Loaded;
+                Unloaded -= _this_UnLoaded;
+                TopImage = null;
+                BottomImage = null;
+            }
+            //告诉自己已经被释放
+            disposed = true;
         }
     }
 }

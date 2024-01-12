@@ -7,6 +7,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 using ZYM.Development.Views;
+using ZYM.Development.Views.Barbie;
+using ZYM.Development.Views.Test;
 
 namespace ZYM.Development
 {
@@ -15,7 +17,7 @@ namespace ZYM.Development
     /// </summary>
     public partial class App : Application
     {
-        public static double Wdith
+        public static double Width
         {
             get { return SystemParameters.WorkArea.Width; }
         }
@@ -50,7 +52,12 @@ namespace ZYM.Development
                     p.Kill();
                 }
             }
+#if DEBUG
+            new BarbieWindow().Show();
+#endif
+#if RELEASE
             new MainWindow().Show();
+#endif
             base.OnStartup(e);
         }
     }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Community.Controls.Base;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -16,7 +17,7 @@ using System.Windows.Shapes;
 namespace Community.Controls
 {
     //[TemplatePart(Name = EllipseTemplateName, Type = typeof(Ellipse))]
-    public class Snowflake : Control
+    public class Snowflake : ControlBase
     {
         //private const string EllipseTemplateName = "PART_Ellipse";
 

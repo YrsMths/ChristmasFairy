@@ -25,5 +25,24 @@ namespace ZYM.Development.Views.Christmas
         {
             InitializeComponent();
         }
+
+        /// <summary>
+        /// 重写的Dispose方法
+        /// </summary>
+        /// <param name="disposing"></param>
+        protected override void Dispose(bool disposing)
+        {
+            if (disposed)
+            {
+                return;
+            }
+            //清理托管资源
+            if (disposing)
+            {
+                snowSky.Dispose();
+            }
+            //告诉自己已经被释放
+            disposed = true;
+        }
     }
 }

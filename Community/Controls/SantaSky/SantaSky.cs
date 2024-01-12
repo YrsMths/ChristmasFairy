@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Community.Controls.Base;
+using Community.Helpers;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -18,12 +20,13 @@ namespace Community.Controls
 {
     [TemplatePart(Name = GridTemplateName, Type = typeof(Grid))]
     [TemplatePart(Name = CanvasTemplateName, Type = typeof(Canvas))]
-    public class SantaSky : Control
+    public class SantaSky : ControlBase
     {
         private const string GridTemplateName = "PART_GridLineContainer";
 
         private const string CanvasTemplateName = "PART_CanvasPartContainer";
 
+        private FestvialType _festvialType;
         private Grid _grid;
         private Canvas _canvas;
 
@@ -71,15 +74,20 @@ namespace Community.Controls
 
         public SantaSky()
         {
-            Loaded += delegate
-            {
-                CompositionTarget.Rendering += delegate
-                {
-                    PartRoamAnimation();
-                    AddOrRemovePartLine();
-                    MovePartLine();
-                };
-            };
+            Loaded += _this_Loaded;
+        }
+
+        private void _this_Loaded(object s, RoutedEventArgs e)
+        {
+            CompositionTarget.Rendering += _this_Rendering;
+        }
+
+        private void _this_Rendering(object sender, EventArgs e)
+        {
+            OnFestivalChanged();
+            PartRoamAnimation();
+            AddOrRemovePartLine();
+            MovePartLine();
         }
 
         public override void OnApplyTemplate()
@@ -137,7 +145,6 @@ namespace Community.Controls
             set => SetValue(PartVMaxProperty, value);
         }
 
-
         public int PartRVMin
         {
             get => (int)GetValue(PartRVMinProperty);
@@ -156,6 +163,16 @@ namespace Community.Controls
             set => SetValue(LineRateProperty, value);
         }
 
+        private void OnFestivalChanged()
+        {
+            if(_festvialType != ControlsHelper.FestvialType)
+            {
+                _festvialType = ControlsHelper.FestvialType;
+                SantaImg = Resources["SantaImage"] as ImageSource;
+                DeerImg = Resources["DeerImage"] as ImageSource;
+                InitPart();
+            }
+        }
 
 
         public void InitPart()
@@ -203,6 +220,9 @@ namespace Community.Controls
             }
         }
 
+        /// <summary>
+        /// 对控件使用动画
+        /// </summary>
         private void SetPartRotateAnimation(Image image)
         {
             double v = _random.Next(PartRVMin, PartRVMax + 1); //速度
@@ -228,6 +248,10 @@ namespace Community.Controls
             sb.Begin(this);
         }
 
+        /// <summary>
+        /// 对控件使用动画
+        /// </summary>
+        /// <param name="part"></param>
         private void SetPartRotateAnimation(Path part)
         {
             double v = _random.Next(PartRVMin, PartRVMax + 1); //速度
@@ -394,6 +418,28 @@ namespace Community.Controls
                     new GradientStop { Offset = 1, Color = Color.FromRgb(0, 0, 0) }
                 }
             };
+        }
+
+        /// <summary>
+        /// 重写的Dispose方法
+        /// </summary>
+        /// <param name="disposing"></param>
+        protected override void Dispose(bool disposing)
+        {
+            if (disposed)
+            {
+                return;
+            }
+            //清理托管资源
+            if (disposing)
+            {
+                SantaImg = null;
+                DeerImg = null;
+                CompositionTarget.Rendering -= _this_Rendering;
+                Loaded -= _this_Loaded;
+            }
+            //告诉自己已经被释放
+            disposed = true;
         }
     }
 

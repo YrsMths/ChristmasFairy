@@ -22,14 +22,14 @@
         <wpfdev:NotifyIcon Title="ChristmasFairy" Name="WpfNotifyIcon">
             <wpfdev:NotifyIcon.ContextMenu>
                 <ContextMenu>
-                    <MenuItem Header="看看" Name="menuItemSetText"  Click="SetText_Click">
+                    <MenuItem Header="设置" Name="menuItemSetText"  Click="SetText_Click">
                         <MenuItem.Icon>
                             <Image Width="15" Height="15" Source="/ZYM.Development;component/Images/glasses.png"/>
                         </MenuItem.Icon>
                     </MenuItem>
-                    <MenuItem Header="魔法棒" Name="menuItemTwink"  Click="Twikle_Click">
+                    <MenuItem Header="刷新" Name="menuItemTwink"  Click="Twikle_Click">
                         <MenuItem.Icon>
-                            <Image Width="15" Height="15" Source="/ZYM.Development;component/Images/eggplant.png"/>
+                            <Image Width="15" Height="15" Source="/ZYM.Development;component/Images/glasses.png"/>
                         </MenuItem.Icon>
                     </MenuItem>
                     <MenuItem Header="退出" Click="Quit_Click">

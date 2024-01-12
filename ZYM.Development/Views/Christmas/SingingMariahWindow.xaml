@@ -7,9 +7,9 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ZYM.Development"
         xmlns:wpfdev="clr-namespace:Community.Controls;assembly=Community"
-        Height="{x:Static local:App.Height}" Width="{x:Static local:App.Wdith}"
+        Height="{x:Static local:App.Height}" Width="{x:Static local:App.Width}"
         mc:Ignorable="d"
-        Title="SingingMariahWindow" WindowStyle="None" AllowsTransparency="True" Background="Transparent" WindowStartupLocation="CenterScreen">
+        Title="SingingMariahWindow" WindowStyle="None" AllowsTransparency="True" Background="Transparent" WindowStartupLocation="CenterOwner">
     <Grid>
         <wpfdev:SingingMariah x:Name="singingMariah"/>
     </Grid>

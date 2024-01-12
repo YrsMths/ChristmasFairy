@@ -1,4 +1,6 @@
-﻿using Community.Helpers;
+﻿using Community.Controls.Base;
+using Community.Helpers;
+using Community.Themes.Basic;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -37,7 +39,7 @@ namespace Community.Controls
     //[TemplatePart(Name = GradientStop8TemplateName, Type = typeof(GradientStop))]
     //[TemplatePart(Name = GradientStop9TemplateName, Type = typeof(GradientStop))]
     //[TemplatePart(Name = GradientStop10TemplateName, Type = typeof(GradientStop))]
-    public class DispreadBox : Control
+    public class DispreadBox : ControlBase
     {
         private const string TextBlockBottomTemplateName = "PART_TextBlockBottom";
         private const string TextBlockTopTemplateName = "PART_TextBlockTop";
@@ -70,7 +72,8 @@ namespace Community.Controls
         public static readonly DependencyProperty TextBackImageProperty =
             DependencyProperty.Register("TextBackImage", typeof(ImageSource), typeof(DispreadBox),
                 new PropertyMetadata(new BitmapImage()));
-        
+
+        private FestvialType festvialType = (FestvialType)(-1);
         private TextBlock _textBlockBottom, _textBlockTop;
         private RectangleGeometry _clipRect1, _clipRect2;
         //private GradientStop _gradientStop1, 
@@ -119,7 +122,18 @@ namespace Community.Controls
 
         public int SpreadTimeSpan;
 
+        /// <summary>
+        /// 整点判断计时器
+        /// </summary>
+        DispatcherTimer _autoSpreadTimer = new DispatcherTimer { Interval = TimeSpan.FromMilliseconds(300) };
+        /// <summary>
+        /// 抛出gift
+        /// </summary>
         DispatcherTimer _spreadTimer = new DispatcherTimer { Interval = TimeSpan.FromMilliseconds(300) };
+        /// <summary>
+        /// 一段时间后关闭
+        /// </summary>
+        DispatcherTimer _closeBoxTimer = new DispatcherTimer { Interval = TimeSpan.FromMilliseconds(300) };
         private readonly Random _random = new Random((int)DateTime.Now.Ticks);
 
         public override void OnApplyTemplate()
@@ -134,39 +148,41 @@ namespace Community.Controls
             var center = new Point(FontSize / 2, FontSize / 2);
             if (_textBlockBottom != null && _textBlockTop != null) //&& _rectangleGeometry != null)
             {
-                _textBlockTop.Loaded += (s, e) =>
-                {
-                    var timer = new DispatcherTimer
-                    {
-                        Interval = TimeSpan.FromMilliseconds(60 * 60 * 1000 - DateTime.Now.Minute * 60000 - DateTime.Now.Second * 1000 - DateTime.Now.Millisecond)
-                    };
-                    timer.Tick += delegate
-                    {
-                        timer.Interval = TimeSpan.FromSeconds(60);
-                        OpenTheBox(true);
-                    };
-                    timer.Start();
-                };
-                //_textBlockBottom.MouseDown += (s, e) => { OpenTheBox(); };
-                //_textBlockBottom.MouseEnter += (s, e) => { OverTheBox(); };
-                //_textBlockBottom.MouseUp += (s, e) => { CloseTheBox(); };
-                //_textBlockBottom.MouseLeave += (s, e) => { LeaveTheBox(); };
+                _textBlockTop.Loaded += _textBlockTop_Loaded;
             }
             Hook();
-            Loaded += (s, e) =>
-            {
-                _spreadTimer.Stop();
-                _spreadTimer.Tick += delegate
-                {
-                    SpreadGifts();
-                };
-                OpenTheBox(true);
-            };
+            _closeBoxTimer.Tick += _closeBoxTimer_Tick;
+            Loaded += _this_Loaded;
+        }
 
-            Unloaded += (s, e) =>
-            {
-                Unhook();
-            };
+        private  void _textBlockTop_Loaded(object s, RoutedEventArgs e)
+        {
+            _autoSpreadTimer.Interval = TimeSpan.FromMilliseconds(60 * 60 * 1000 - DateTime.Now.Minute * 60000 - DateTime.Now.Second * 1000 - DateTime.Now.Millisecond);
+            _autoSpreadTimer.Start();
+        }
+
+        private void _closeBoxTimer_Tick(object sender, EventArgs e)
+        {
+            CloseTheBox();
+            _closeBoxTimer.Stop();
+        }
+
+        private void _autoSpreadTimer_Tick(object sender, EventArgs e)
+        {
+            _autoSpreadTimer.Interval = TimeSpan.FromSeconds(60);
+            OpenTheBox(true);
+        }
+
+        private void _spreadTimer_Tick(object sender, EventArgs e)
+        {
+            SpreadGifts();
+        }
+
+        private void _this_Loaded(object s, RoutedEventArgs e)
+        {
+            _spreadTimer.Stop();
+            _spreadTimer.Tick += _spreadTimer_Tick;
+            OpenTheBox(true);
         }
 
         private const int WM_MOUSEMOVE = 0x0200;
@@ -193,6 +209,13 @@ namespace Community.Controls
             }
         }
 
+        /// <summary>
+        /// 钩子函数
+        /// </summary>
+        /// <param name="nCode"></param>
+        /// <param name="wParam"></param>
+        /// <param name="lParam"></param>
+        /// <returns></returns>
         private int MouseHookProc(int nCode, int wParam, IntPtr lParam)
         {
             if (nCode == HC_ACTION && wParam == WM_MOUSEMOVE)
@@ -212,13 +235,57 @@ namespace Community.Controls
             }
             return Win32ApiHelper.CallNextHookEx(hMouseHook, nCode, wParam, lParam);
         }
-        
+
+
+        Storyboard _openBoxStoryBoard;
+        Storyboard _closeBoxStoryBoard;
         /// <summary>
-        /// 鼠标悬浮
+        /// 是否自动打开
         /// </summary>
-        public void OverTheBox()
+        bool AutoOpen = false;
+        /// <summary>
+        /// 窗口正在关闭
+        /// </summary>
+        bool IsClosing = true;
+
+
+        /// <summary>
+        /// 打开盒子
+        /// </summary>
+        public void OpenTheBox(bool Auto = false)
         {
-            if (null == _enterBoxStoryBoard)
+            if (!IsClosing) return;
+            IsClosing = false;
+            AutoOpen = Auto;
+            Begin();
+            if (Auto)
+            {
+                _closeBoxTimer.Interval = Duration;
+                _closeBoxTimer.Start();
+            }
+            else
+            {
+                _closeBoxTimer.Stop();
+            }
+        }
+
+        /// <summary>
+        /// 关闭盒子
+        /// </summary>
+        public void CloseTheBox()
+        {
+            if (IsClosing) return;
+            IsClosing = true;
+            End();
+            _spreadTimer.Stop();
+        }
+
+        /// <summary>
+        /// 开始动作
+        /// </summary>
+        public void Begin()
+        {
+            if (null == _openBoxStoryBoard)
             {
                 var textDoubleAnimation = new DoubleAnimation
                 {
@@ -230,18 +297,28 @@ namespace Community.Controls
                 Storyboard.SetTargetProperty(textDoubleAnimation,
                     new PropertyPath("(TextBlock.Foreground).(Brush.RelativeTransform).(RotateTransform.Angle)"));
 
-                _enterBoxStoryBoard = new Storyboard();
-                _enterBoxStoryBoard.Children.Add(textDoubleAnimation);
+                _openBoxStoryBoard = new Storyboard();
+                _openBoxStoryBoard.Children.Add(textDoubleAnimation);
             }
-            _enterBoxStoryBoard.Begin();
+            _openBoxStoryBoard.Begin();
+
+            for (int i = 1; i <= 10; i++)
+            {
+                var to = i <= 5 ? 0 : 1;
+                var textColorAnimation = new DoubleAnimation { To = to, Duration = TimeSpan.FromSeconds(1) };
+                (GetTemplateChild("PART_G" + i) as GradientStop).BeginAnimation(GradientStop.OffsetProperty, textColorAnimation);
+            }
+            _spreadTimer.Start();
+
+            SpreadGifts();
         }
 
         /// <summary>
-        /// 鼠标离开
+        /// 结束动作
         /// </summary>
-        public void LeaveTheBox()
+        public void End()
         {
-            if (null == _leaveBoxStoryBoard)
+            if (null == _closeBoxStoryBoard)
             {
                 var textDoubleAnimation = new DoubleAnimation
                 {
@@ -253,107 +330,10 @@ namespace Community.Controls
                 Storyboard.SetTargetProperty(textDoubleAnimation,
                     new PropertyPath("(TextBlock.Foreground).(Brush.RelativeTransform).(RotateTransform.Angle)"));
 
-                _leaveBoxStoryBoard = new Storyboard();
-                _leaveBoxStoryBoard.Children.Add(textDoubleAnimation);
+                _closeBoxStoryBoard = new Storyboard();
+                _closeBoxStoryBoard.Children.Add(textDoubleAnimation);
             }
-            _leaveBoxStoryBoard.Begin();
-        }
-
-        Storyboard _openBoxStoryBoard;
-        Storyboard _closeBoxStoryBoard;
-        Storyboard _enterBoxStoryBoard;
-        Storyboard _leaveBoxStoryBoard;
-        bool AutoOpen = false;
-        bool IsClosing = true;
-
-        /// <summary>
-        /// 打开盒子
-        /// </summary>
-        public void OpenTheBox(bool Auto = false)
-        {
-            if (!IsClosing) return;
-            IsClosing = false;
-            AutoOpen = Auto;
-            OverTheBox();
-            //if (null == _openBoxStoryBoard)
-            //{
-            //    _openBoxStoryBoard = new Storyboard();
-            //    for (int i = 1; i <= 10; i++)
-            //    {
-            //        var to = i <= 5 ? 0 : 1;
-            //        var gradientStopDoubleAnimation = new DoubleAnimation { To = to, Duration = TimeSpan.FromSeconds(3) };
-            //        Storyboard.SetTarget(gradientStopDoubleAnimation, GetTemplateChild("PART_G" + i) as GradientStop);
-            //        Storyboard.SetTargetProperty(gradientStopDoubleAnimation, new PropertyPath(GradientStop.OffsetProperty));
-            //        _openBoxStoryBoard.Children.Add(gradientStopDoubleAnimation);
-            //    }
-            //}
-            //_openBoxStoryBoard.Begin();
-            
-            for (int i = 1; i <= 10; i++)
-            {
-                var to = i <= 5 ? 0 : 1;
-                var textColorAnimation = new DoubleAnimation { To = to, Duration = TimeSpan.FromSeconds(1) };
-                (GetTemplateChild("PART_G" + i) as GradientStop).BeginAnimation(GradientStop.OffsetProperty, textColorAnimation);
-            }
-            _spreadTimer.Start();
-
-            if (Auto)
-            {
-                var timer = new DispatcherTimer { Interval = Duration };
-                timer.Tick += delegate
-                {
-                    CloseTheBox();
-                    timer.Stop();
-                };
-                timer.Start();
-            }
-        }
-
-        /// <summary>
-        /// 关闭盒子
-        /// </summary>
-        public void CloseTheBox()
-        {
-            if (IsClosing) return;
-            IsClosing = true;
-            LeaveTheBox();
-            _spreadTimer.Stop();
-            //if (null == _closeBoxStoryBoard)
-            //{
-            //    _closeBoxStoryBoard = new Storyboard();
-            //    for (int i = 1; i <= 10; i++)
-            //    {
-            //        double? to = 0.5;
-            //        switch (i)
-            //        {
-            //            case 1:
-            //                to = 0;
-            //                break;
-            //            case 2:
-            //            case 3:
-            //                to = 0.3333;
-            //                break;
-            //            case 4:
-            //            case 5:
-            //            case 6:
-            //            case 7:
-            //                to = 0.50;
-            //                break;
-            //            case 8:
-            //            case 9:
-            //                to = 0.6666;
-            //                break;
-            //            case 10:
-            //                to = 1.00;
-            //                break;
-            //        }
-            //        var gradientStopDoubleAnimation = new DoubleAnimation { To = to, Duration = TimeSpan.FromSeconds(3) };
-            //        Storyboard.SetTarget(gradientStopDoubleAnimation, GetTemplateChild("PART_G" + i) as GradientStop);
-            //        Storyboard.SetTargetProperty(gradientStopDoubleAnimation, new PropertyPath(GradientStop.OffsetProperty));
-            //        _closeBoxStoryBoard.Children.Add(gradientStopDoubleAnimation);
-            //    }
-            //}
-            //_closeBoxStoryBoard.Begin();
+            _closeBoxStoryBoard.Begin();
 
             for (int i = 1; i <= 10; i++)
             {
@@ -391,6 +371,11 @@ namespace Community.Controls
         /// </summary>
         private void SpreadGifts()
         {
+            if (festvialType != ControlsHelper.FestvialType)
+            {
+                festvialType = ControlsHelper.FestvialType;
+                Gifts = (Application.Current.Resources["TheGifts"] as ImageCollection).ToArray();
+            }
             if (Gifts == null || Gifts.Length == 0) return;
 
             int size = _random.Next(10, 30);
@@ -398,6 +383,7 @@ namespace Community.Controls
             Duration Duration = TimeSpan.FromSeconds(_random.Next(3, 6));
 
             Geometry geometry = new RectangleGeometry(new Rect(10, 10, 10, 10));
+            
             Image image = new Image()
             {
                 Source = Gifts[_random.Next(0, Gifts.Length)],
@@ -463,7 +449,7 @@ namespace Community.Controls
             Storyboard.SetTargetProperty(angleAnimation, new PropertyPath("(UIElement.RenderTransform).(RotateTransform.Angle)"));
 
             var story = new Storyboard();
-            story.Completed += (sender, e) => _canvas.Children.Remove(image);
+            story.Completed += (sender, e) => { _canvas.Children.Remove(image); image.ClearEvents(); };
             story.Children.Add(angleAnimation);
             story.Children.Add(xAnimation);
             story.Children.Add(yAnimation);
@@ -480,6 +466,38 @@ namespace Community.Controls
             double x = _random.Next(a, b);
             double y = _random.Next(c, d);
             return _random.Next() % 2 == 0 ? x : y;
+        }
+
+        /// <summary>
+        /// 重写的Dispose方法
+        /// </summary>
+        /// <param name="disposing"></param>
+        protected override void Dispose(bool disposing)
+        {
+            if (disposed)
+            {
+                return;
+            }
+            //清理托管资源
+            if (disposing)
+            {
+                Unhook();
+                Gifts = null;
+                TextBackImage = null;
+                this._openBoxStoryBoard.Remove();
+                this._closeBoxStoryBoard.Remove();
+                this.ClearEvents();
+                _spreadTimer.Tick -= _spreadTimer_Tick;
+                _autoSpreadTimer.Tick -= _autoSpreadTimer_Tick;
+                _closeBoxTimer.Tick -= _closeBoxTimer_Tick;
+                _textBlockTop.Loaded -= _textBlockTop_Loaded;
+                _spreadTimer = null;
+                _autoSpreadTimer = null;
+                _closeBoxTimer = null;
+                Loaded -= _this_Loaded;
+            }
+            //告诉自己已经被释放
+            disposed = true;
         }
     }
 }

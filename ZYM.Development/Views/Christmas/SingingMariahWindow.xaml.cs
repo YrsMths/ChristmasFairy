@@ -56,5 +56,25 @@ namespace ZYM.Development.Views.Christmas
                 serialImages1.ToArray()
             };
         }
+
+        /// <summary>
+        /// 重写的Dispose方法
+        /// </summary>
+        /// <param name="disposing"></param>
+        protected override void Dispose(bool disposing)
+        {
+            if (disposed)
+            {
+                return;
+            }
+            //清理托管资源
+            if (disposing)
+            {
+                this.Loaded -= Init;
+                singingMariah.Dispose();
+            }
+            //告诉自己已经被释放
+            disposed = true;
+        }
     }
 }

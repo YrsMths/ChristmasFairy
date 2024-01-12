@@ -1,0 +1,114 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:po="http://schemas.microsoft.com/winfx/2006/xaml/presentation/options" po:Freeze="True"
+                    xmlns:Base="clr-namespace:Community.Themes.Basic">
+    <!--Default颜色-->
+    <Color x:Key="DefaultBorderBrushColor" po:Freeze="True">#FFC6E2FF</Color>
+    <SolidColorBrush x:Key="DefaultBorderBrushSolidColorBrush" Color="{StaticResource DefaultBorderBrushColor}" po:Freeze="True"></SolidColorBrush>
+
+    <Color x:Key="DefaultBackgroundColor" po:Freeze="True">#FFEBF4FF</Color>
+    <SolidColorBrush x:Key="DefaultBackgroundSolidColorBrush" Color="{StaticResource DefaultBackgroundColor}" po:Freeze="True"></SolidColorBrush>
+
+    <Color x:Key="DefaultBackgroundPressedColor" po:Freeze="True">#FF398DE6</Color>
+    <SolidColorBrush x:Key="DefaultBackgroundPressedSolidColorBrush" Color="{StaticResource DefaultBackgroundPressedColor}" po:Freeze="True"></SolidColorBrush>
+
+    <!--Primary颜色-->
+    <Color x:Key="PrimaryNormalColor" po:Freeze="True">#4faeef</Color>
+    <SolidColorBrush x:Key="PrimaryNormalSolidColorBrush" Color="{StaticResource PrimaryNormalColor}" po:Freeze="True"></SolidColorBrush>
+    <SolidColorBrush x:Key="WindowBorderBrushSolidColorBrush" Color="{StaticResource PrimaryNormalColor}" po:Freeze="True"></SolidColorBrush>
+
+    <Color x:Key="PrimaryMouseOverColor" po:Freeze="True">#509dd1</Color>
+    <SolidColorBrush x:Key="PrimaryMouseOverSolidColorBrush" Color="{StaticResource PrimaryMouseOverColor}" po:Freeze="True"></SolidColorBrush>
+
+    <Color x:Key="PrimaryPressedColor" po:Freeze="True">#408ec3</Color>
+    <SolidColorBrush x:Key="PrimaryPressedSolidColorBrush" Color="{StaticResource PrimaryPressedColor}" po:Freeze="True"></SolidColorBrush>
+
+    <Color x:Key="PrimaryLighterColor" po:Freeze="True">#7ecbff</Color>
+    <SolidColorBrush x:Key="PrimaryLighterSolidColorBrush" Color="{StaticResource PrimaryLighterColor}" po:Freeze="True"></SolidColorBrush>
+
+    <!--Secondary颜色-->
+    <Color x:Key="SecondaryNormalColor" po:Freeze="True">#ff99bb</Color>
+    <SolidColorBrush x:Key="SecondaryNormalSolidColorBrush" Color="{StaticResource SecondaryNormalColor}" po:Freeze="True"></SolidColorBrush>
+
+    <Color x:Key="SecondaryMouseOverColor" po:Freeze="True">#ff6e9f</Color>
+    <SolidColorBrush x:Key="SecondaryMouseOverSolidColorBrush" Color="{StaticResource SecondaryMouseOverColor}" po:Freeze="True"></SolidColorBrush>
+
+    <Color x:Key="SecondaryPressedColor" po:Freeze="True">#d47f9c</Color>
+    <SolidColorBrush x:Key="SecondaryPressedSolidColorBrush" Color="{StaticResource SecondaryPressedColor}" po:Freeze="True"></SolidColorBrush>
+
+    <Color x:Key="SecondaryLighterColor" po:Freeze="True">#ff568f</Color>
+    <SolidColorBrush x:Key="SecondaryLighterSolidColorBrush" Color="{StaticResource SecondaryLighterColor}" po:Freeze="True"></SolidColorBrush>
+    <!--Tertiary颜色-->
+    <Color x:Key="TertiaryNormalColor" po:Freeze="True">#E6E61A</Color>
+    <SolidColorBrush x:Key="TertiaryNormalSolidColorBrush" Color="{StaticResource TertiaryNormalColor}" po:Freeze="True"></SolidColorBrush>
+
+    <Color x:Key="TertiaryMouseOverColor" po:Freeze="True">#E6E61A</Color>
+    <SolidColorBrush x:Key="TertiaryMouseOverSolidColorBrush" Color="{StaticResource TertiaryMouseOverColor}" po:Freeze="True"></SolidColorBrush>
+
+    <Color x:Key="TertiaryPressedColor" po:Freeze="True">#E6E61A</Color>
+    <SolidColorBrush x:Key="TertiaryPressedSolidColorBrush" Color="{StaticResource TertiaryPressedColor}" po:Freeze="True"></SolidColorBrush>
+
+    <Color x:Key="TertiaryLighterColor" po:Freeze="True">#E6E61A</Color>
+    <SolidColorBrush x:Key="TertiaryLighterSolidColorBrush" Color="{StaticResource TertiaryLighterColor}" po:Freeze="True"></SolidColorBrush>
+    <!--图片资源-->
+    <!--SantaSky-->
+    <BitmapImage x:Key="SantaImage" UriSource="/Community;component/Images/SantaSky/santa.png"/>
+    <BitmapImage x:Key="DeerImage" UriSource="/Community;component/Images/SantaSky/deer.png"/>
+    <!--OpenTheGift-->
+    <BitmapImage x:Key="OpenTheGift_BackImage" UriSource="/Community;component/Images/OpenTheGift/christmas_back_spots.png"/>
+    <Base:ImageCollection x:Key="TheGifts">
+        <BitmapImage UriSource="/Community;component/Images/OpenTheGift/daily_bangqiu.png"/>
+        <BitmapImage UriSource="/Community;component/Images/OpenTheGift/daily_baozhi.png"/>
+        <BitmapImage UriSource="/Community;component/Images/OpenTheGift/daily_beibao.png"/>
+        <BitmapImage UriSource="/Community;component/Images/OpenTheGift/daily_biaoqian.png"/>
+        <BitmapImage UriSource="/Community;component/Images/OpenTheGift/daily_bingbang.png"/>
+        <BitmapImage UriSource="/Community;component/Images/OpenTheGift/daily_dengpao.png"/>
+        <BitmapImage UriSource="/Community;component/Images/OpenTheGift/daily_erji.png"/>
+        <BitmapImage UriSource="/Community;component/Images/OpenTheGift/daily_feichuan.png"/>
+        <BitmapImage UriSource="/Community;component/Images/OpenTheGift/daily_feiji.png"/>
+        <BitmapImage UriSource="/Community;component/Images/OpenTheGift/daily_hongjiu.png"/>
+        <BitmapImage UriSource="/Community;component/Images/OpenTheGift/daily_hua.png"/>
+        <BitmapImage UriSource="/Community;component/Images/OpenTheGift/daily_huojian.png"/>
+        <BitmapImage UriSource="/Community;component/Images/OpenTheGift/daily_huotuichang.png"/>
+        <BitmapImage UriSource="/Community;component/Images/OpenTheGift/daily_jita.png"/>
+        <BitmapImage UriSource="/Community;component/Images/OpenTheGift/daily_jitui.png"/>
+        <BitmapImage UriSource="/Community;component/Images/OpenTheGift/daily_kafei.png"/>
+        <BitmapImage UriSource="/Community;component/Images/OpenTheGift/daily_kaochang.png"/>
+        <BitmapImage UriSource="/Community;component/Images/OpenTheGift/daily_lanqiu.png"/>
+        <BitmapImage UriSource="/Community;component/Images/OpenTheGift/daily_naozhong.png"/>
+        <BitmapImage UriSource="/Community;component/Images/OpenTheGift/daily_pingguo.png"/>
+        <BitmapImage UriSource="/Community;component/Images/OpenTheGift/daily_pingtangdeshu.png"/>
+        <BitmapImage UriSource="/Community;component/Images/OpenTheGift/daily_qianbi.png"/>
+        <BitmapImage UriSource="/Community;component/Images/OpenTheGift/daily_qing.png"/>
+        <BitmapImage UriSource="/Community;component/Images/OpenTheGift/daily_qizhi.png"/>
+        <BitmapImage UriSource="/Community;component/Images/OpenTheGift/daily_reyin.png"/>
+        <BitmapImage UriSource="/Community;component/Images/OpenTheGift/daily_rili.png"/>
+        <BitmapImage UriSource="/Community;component/Images/OpenTheGift/daily_san.png"/>
+        <BitmapImage UriSource="/Community;component/Images/OpenTheGift/daily_shangyi.png"/>
+        <BitmapImage UriSource="/Community;component/Images/OpenTheGift/daily_shoubiao.png"/>
+        <BitmapImage UriSource="/Community;component/Images/OpenTheGift/daily_toukui.png"/>
+        <BitmapImage UriSource="/Community;component/Images/OpenTheGift/daily_tubiaozhizuomoban.png"/>
+        <BitmapImage UriSource="/Community;component/Images/OpenTheGift/daily_wazi.png"/>
+        <BitmapImage UriSource="/Community;component/Images/OpenTheGift/daily_xiaolian.png"/>
+        <BitmapImage UriSource="/Community;component/Images/OpenTheGift/daily_xiezi.png"/>
+        <BitmapImage UriSource="/Community;component/Images/OpenTheGift/daily_yingtao.png"/>
+        <BitmapImage UriSource="/Community;component/Images/OpenTheGift/daily_youxishoubing.png"/>
+        <BitmapImage UriSource="/Community;component/Images/OpenTheGift/daily_zhaoxiangji.png"/>
+        <BitmapImage UriSource="/Community;component/Images/OpenTheGift/daily_zidongqianbi.png"/>
+
+    </Base:ImageCollection>
+    <!--CrystalBall-->
+    <BitmapImage x:Key="CrystalBall_Foreground_Top_Image_01" UriSource="/Community;component/Images/CystalBall/back_stars2.png"/>
+    <BitmapImage x:Key="CrystalBall_Foreground_Bottom_Image_04" UriSource="/Community;component/Images/CystalBall/back_stars2.png"/>
+    <BitmapImage x:Key="CrystalBall_Foreground_Bottom_Image_05" UriSource="/Community;component/Images/CystalBall/back_spots3.png"/>
+    <BitmapImage x:Key="CrystalBall_Midground_Top_Image_06" UriSource="/Community;component/Images/CystalBall/back_confetti.png"/>
+    <BitmapImage x:Key="CrystalBall_Midground_Top_Image_07" UriSource="/Community;component/Images/CystalBall/back_lights.png"/>
+    <BitmapImage x:Key="CrystalBall_Midground_Bottom_Image_09" UriSource="/Community;component/Images/CystalBall/back_spots3.png"/>
+    <BitmapImage x:Key="CrystalBall_Character_Stretch_Image_11" UriSource="/Community;component/Images/CystalBall/santa.png"/>
+    <BitmapImage x:Key="CrystalBall_Background_Stretch_Image_12" UriSource="/Community;component/Images/CystalBall/back_spots2.png"/>
+    <!--Barbie-->
+    <Base:ImageCollection x:Key="Barbies">
+        <BitmapImage UriSource="/Community;component/Images/Barbie/barbie_title.png"/>
+        <BitmapImage UriSource="/Community;component/Images/Barbie/barbie.png"/>
+    </Base:ImageCollection>
+</ResourceDictionary>

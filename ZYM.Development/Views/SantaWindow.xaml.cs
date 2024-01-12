@@ -10,6 +10,7 @@ using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
+using System.Windows.Media.Animation;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
@@ -44,10 +45,6 @@ namespace ZYM.Development.Views
                 case "Close":
                     this.Close();
                     break;
-                case "Set":
-                    Save();
-                    Event_Yes?.Invoke(sender, e);
-                    break;
             }
         }
 
@@ -58,6 +55,16 @@ namespace ZYM.Development.Views
 
                 (sender as Window).DragMove();
             }
+        }
+
+        private void SantasWord_TextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            Save();
+        }
+
+        private void Window_Closed(object sender, EventArgs e)
+        {
+            Event_Yes?.Invoke(sender, e);
         }
     }
 }

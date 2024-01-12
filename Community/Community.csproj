@@ -13,6 +13,8 @@
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
     <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -23,6 +25,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <LangVersion>7.1</LangVersion>
+    <PlatformTarget>AnyCPU</PlatformTarget>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -37,11 +40,15 @@
     <StartupObject />
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Microsoft.QualityTools.Testing.Fakes, Version=12.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Numerics" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xaml" />
     <Reference Include="System.Xml.Linq" />
@@ -51,10 +58,24 @@
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Xml" />
     <Reference Include="WindowsBase" />
+    <Reference Include="WindowsFormsIntegration" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controls\Banner\Banner.cs" />
+    <Compile Include="Controls\Banner\BannerChar.cs" />
+    <Compile Include="Controls\Base\BaseEx.cs" />
+    <Compile Include="Controls\Base\ControlBase.cs" />
     <Compile Include="Controls\Button\ButtonEx.cs" />
+    <Compile Include="Controls\CrystalBall\CrystalBall.cs" />
     <Compile Include="Controls\DogsClock\DogsClock.cs" />
+    <Compile Include="Controls\Live2D\Live2D.cs" />
+    <Compile Include="Controls\MyBrushes\NoiseBrush.cs" />
+    <Compile Include="Controls\MyBrushes\Pentacle.cs" />
+    <Compile Include="Controls\MyBrushes\SequinBrush.cs" />
+    <Compile Include="Controls\ThemeControl\FestvialType.cs" />
+    <Compile Include="Controls\ThemeControl\ThemeControl.cs" />
+    <Compile Include="Controls\ThemeControl\ThemeModel.cs" />
+    <Compile Include="Controls\TypeWriter\TypeWriter.cs" />
     <Compile Include="Controls\WheresWally\WheresWally.cs" />
     <Compile Include="Controls\Line\CurveLine.cs" />
     <Compile Include="Controls\NavigateMenu\NavigateMenu.cs" />
@@ -93,16 +114,31 @@
     <Compile Include="Controls\SantaSky\SantaSky.cs" />
     <Compile Include="Controls\Text\ShapeText.cs" />
     <Compile Include="Helpers\Basic\RadomBasic.cs" />
+    <Compile Include="Helpers\Birdson\BirdsonHelper.cs" />
     <Compile Include="Helpers\ColorHelpers.cs" />
     <Compile Include="Helpers\ControlsHelper.cs" />
     <Compile Include="Helpers\RandomHelper.cs" />
     <Compile Include="Helpers\Win32ApiHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Resources.cs" />
+    <Compile Include="Themes\Basic\ImageCollection.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Themes\Styles\" />
+    <Resource Include="Images\CystalBall\fore_grass.png" />
   </ItemGroup>
   <ItemGroup>
+    <Page Include="Themes\Dynamic\Light.Barbie.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\Dynamic\Light.Daily.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Themes\Styles\BannerDictionary.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Themes\Basic\Colors.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -110,6 +146,10 @@
     <Page Include="Themes\Basic\ControlBasic.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Themes\Basic\Dark.Color.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Themes\Basic\Font.xaml">
       <SubType>Designer</SubType>
@@ -119,38 +159,248 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Themes\Basic\Light.Color.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Themes\Generic.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Themes\BrokenNeonTextDictionary.xaml">
+    <Page Include="Themes\Styles\BrokenNeonTextDictionary.xaml">
       <SubType>Designer</SubType>
       <Generator>XamlIntelliSenseFileGenerator</Generator>
     </Page>
-    <Page Include="Themes\ButtonExDictionary.xaml">
+    <Page Include="Themes\Styles\BrushesDictionary.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Themes\DispreadBoxDictionary.xaml">
+    <Page Include="Themes\Styles\ButtonExDictionary.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Themes\NeonTextDictionary.xaml">
+    <Page Include="Themes\Styles\CrystalBallDictionary.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Themes\SantaSkyDictionary.xaml">
+    <Page Include="Themes\Styles\DispreadBoxDictionary.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Themes\SingingMariahDictionary.xaml">
+    <Page Include="Themes\Dynamic\Light.Christmas.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\Dynamic\Light.Halloween.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\Dynamic\Light.NewYear.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\Styles\NeonTextDictionary.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Themes\SnowSkyDictionary.xaml">
+    <Page Include="Themes\Styles\SantaSkyDictionary.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Themes\Styles\SingingMariahDictionary.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Themes\Styles\SnowSkyDictionary.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Themes\Styles\ThemeControlDictionary.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Themes\Styles\TypeWriterDictionary.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Themes\Styles\WheresWallyDictionary.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\OpenTheGift\christmas_back_spots.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\OpenTheGift\christmas_bell.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\OpenTheGift\christmas_candy.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\OpenTheGift\christmas_crutch.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\OpenTheGift\christmas_deer.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\OpenTheGift\christmas_fruit.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\OpenTheGift\christmas_garland.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\OpenTheGift\christmas_gift.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\OpenTheGift\christmas_gingerbreadman.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\OpenTheGift\christmas_glove.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\OpenTheGift\christmas_hat.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\OpenTheGift\christmas_snowman.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\OpenTheGift\christmas_sled.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\OpenTheGift\christmas_sock.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\OpenTheGift\christmas_star.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\OpenTheGift\christmas_spirit.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\OpenTheGift\christmas_tree.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\SantaSky\santa.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\SantaSky\deer.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Themes\Daily.png" />
+    <Resource Include="Images\Themes\Halloween.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Themes\Christmas.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\CystalBall\back_confetti.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\CystalBall\back_lights.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\CystalBall\back_spots3.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\CystalBall\back_spots2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\CystalBall\back_stars2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\CystalBall\santa.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\OpenTheGift\newyear_baozhu.png" />
+    <Resource Include="Images\OpenTheGift\newyear_caishen.png" />
+    <Resource Include="Images\OpenTheGift\newyear_chunlian.png" />
+    <Resource Include="Images\OpenTheGift\newyear_denglong.png" />
+    <Resource Include="Images\OpenTheGift\newyear_fangzi.png" />
+    <Resource Include="Images\OpenTheGift\newyear_fu.png" />
+    <Resource Include="Images\OpenTheGift\newyear_fudai.png" />
+    <Resource Include="Images\OpenTheGift\newyear_gu.png" />
+    <Resource Include="Images\OpenTheGift\newyear_hongbao.png" />
+    <Resource Include="Images\OpenTheGift\newyear_juzi.png" />
+    <Resource Include="Images\OpenTheGift\newyear_keji.png" />
+    <Resource Include="Images\OpenTheGift\newyear_niannianyouyu.png" />
+    <Resource Include="Images\OpenTheGift\newyear_qianbi.png" />
+    <Resource Include="Images\OpenTheGift\newyear_shanzi.png" />
+    <Resource Include="Images\OpenTheGift\newyear_tanghulu.png" />
+    <Resource Include="Images\OpenTheGift\newyear_wushi.png" />
+    <Resource Include="Images\OpenTheGift\newyear_xueren.png" />
+    <Resource Include="Images\OpenTheGift\newyear_yanhua.png" />
+    <Resource Include="Images\OpenTheGift\newyear_yifu.png" />
+    <Resource Include="Images\OpenTheGift\newyear_yuanbao.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\OpenTheGift\daily_bangqiu.png" />
+    <Resource Include="Images\OpenTheGift\daily_baozhi.png" />
+    <Resource Include="Images\OpenTheGift\daily_beibao.png" />
+    <Resource Include="Images\OpenTheGift\daily_biaoqian.png" />
+    <Resource Include="Images\OpenTheGift\daily_bingbang.png" />
+    <Resource Include="Images\OpenTheGift\daily_dengpao.png" />
+    <Resource Include="Images\OpenTheGift\daily_erji.png" />
+    <Resource Include="Images\OpenTheGift\daily_feichuan.png" />
+    <Resource Include="Images\OpenTheGift\daily_feiji.png" />
+    <Resource Include="Images\OpenTheGift\daily_hongjiu.png" />
+    <Resource Include="Images\OpenTheGift\daily_hua.png" />
+    <Resource Include="Images\OpenTheGift\daily_huojian.png" />
+    <Resource Include="Images\OpenTheGift\daily_huotuichang.png" />
+    <Resource Include="Images\OpenTheGift\daily_jita.png" />
+    <Resource Include="Images\OpenTheGift\daily_jitui.png" />
+    <Resource Include="Images\OpenTheGift\daily_kafei.png" />
+    <Resource Include="Images\OpenTheGift\daily_kaochang.png" />
+    <Resource Include="Images\OpenTheGift\daily_lanqiu.png" />
+    <Resource Include="Images\OpenTheGift\daily_naozhong.png" />
+    <Resource Include="Images\OpenTheGift\daily_pingguo.png" />
+    <Resource Include="Images\OpenTheGift\daily_pingtangdeshu.png" />
+    <Resource Include="Images\OpenTheGift\daily_qianbi.png" />
+    <Resource Include="Images\OpenTheGift\daily_qing.png" />
+    <Resource Include="Images\OpenTheGift\daily_qizhi.png" />
+    <Resource Include="Images\OpenTheGift\daily_reyin.png" />
+    <Resource Include="Images\OpenTheGift\daily_rili.png" />
+    <Resource Include="Images\OpenTheGift\daily_san.png" />
+    <Resource Include="Images\OpenTheGift\daily_shangyi.png" />
+    <Resource Include="Images\OpenTheGift\daily_shoubiao.png" />
+    <Resource Include="Images\OpenTheGift\daily_toukui.png" />
+    <Resource Include="Images\OpenTheGift\daily_tubiaozhizuomoban.png" />
+    <Resource Include="Images\OpenTheGift\daily_wazi.png" />
+    <Resource Include="Images\OpenTheGift\daily_xiaolian.png" />
+    <Resource Include="Images\OpenTheGift\daily_xiezi.png" />
+    <Resource Include="Images\OpenTheGift\daily_yingtao.png" />
+    <Resource Include="Images\OpenTheGift\daily_youxishoubing.png" />
+    <Resource Include="Images\OpenTheGift\daily_zhaoxiangji.png" />
+    <Resource Include="Images\OpenTheGift\daily_zidongqianbi.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\OpenTheGift\halloween_.png" />
+    <Resource Include="Images\OpenTheGift\halloween_1.png" />
+    <Resource Include="Images\OpenTheGift\halloween_10.png" />
+    <Resource Include="Images\OpenTheGift\halloween_11.png" />
+    <Resource Include="Images\OpenTheGift\halloween_12.png" />
+    <Resource Include="Images\OpenTheGift\halloween_13.png" />
+    <Resource Include="Images\OpenTheGift\halloween_14.png" />
+    <Resource Include="Images\OpenTheGift\halloween_15.png" />
+    <Resource Include="Images\OpenTheGift\halloween_16.png" />
+    <Resource Include="Images\OpenTheGift\halloween_17.png" />
+    <Resource Include="Images\OpenTheGift\halloween_18.png" />
+    <Resource Include="Images\OpenTheGift\halloween_19.png" />
+    <Resource Include="Images\OpenTheGift\halloween_2.png" />
+    <Resource Include="Images\OpenTheGift\halloween_20.png" />
+    <Resource Include="Images\OpenTheGift\halloween_21.png" />
+    <Resource Include="Images\OpenTheGift\halloween_3.png" />
+    <Resource Include="Images\OpenTheGift\halloween_4.png" />
+    <Resource Include="Images\OpenTheGift\halloween_5.png" />
+    <Resource Include="Images\OpenTheGift\halloween_6.png" />
+    <Resource Include="Images\OpenTheGift\halloween_7.png" />
+    <Resource Include="Images\OpenTheGift\halloween_8.png" />
+    <Resource Include="Images\OpenTheGift\halloween_9.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Barbie\barbie.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Barbie\barbie_title.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

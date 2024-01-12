@@ -11,6 +11,7 @@ using ZYM.Development.Commands;
 using ZYM.Development.Models;
 using ZYM.Development.Views;
 using ZYM.Development.Views.Christmas;
+using ZYM.Development.Views.Daily;
 
 namespace ZYM.Development.ViewModels
 {

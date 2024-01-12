@@ -11,6 +11,8 @@ namespace Community.Helpers
     {
         public T Max { get; set; }
 
+        public T Min { get; set; }
+
         public abstract T Next { get; }
     }
 }

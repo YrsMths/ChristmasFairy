@@ -3,7 +3,7 @@
   <Profiles />
   <Settings>
     <Setting Name="SantasWord" Type="System.String" Scope="User">
-      <Value Profile="(Default)">FUCK</Value>
+      <Value Profile="(Default)">Default</Value>
     </Setting>
     <Setting Name="LastWindow" Type="System.String" Scope="User">
       <Value Profile="(Default)" />

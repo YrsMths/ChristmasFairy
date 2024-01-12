@@ -3,13 +3,19 @@
                     xmlns:local="clr-namespace:Community.Controls">
     <ResourceDictionary.MergedDictionaries>
         <ResourceDictionary Source="/Community;component/Themes/Basic/ControlBasic.xaml"/>
-        <ResourceDictionary Source="/Community;component/Themes/DispreadBoxDictionary.xaml"/>
-        <ResourceDictionary Source="/Community;component/Themes/SantaSkyDictionary.xaml"/>
-        <ResourceDictionary Source="/Community;component/Themes/SingingMariahDictionary.xaml"/>
-        <ResourceDictionary Source="/Community;component/Themes/SnowSkyDictionary.xaml"/>
-        <ResourceDictionary Source="/Community;component/Themes/NeonTextDictionary.xaml"/>
-        <ResourceDictionary Source="/Community;component/Themes/BrokenNeonTextDictionary.xaml"/>
-        <ResourceDictionary Source="/Community;component/Themes/ButtonExDictionary.xaml"/>
+        <ResourceDictionary Source="/Community;component/Themes/Styles/DispreadBoxDictionary.xaml"/>
+        <ResourceDictionary Source="/Community;component/Themes/Styles/SantaSkyDictionary.xaml"/>
+        <ResourceDictionary Source="/Community;component/Themes/Styles/SingingMariahDictionary.xaml"/>
+        <ResourceDictionary Source="/Community;component/Themes/Styles/SnowSkyDictionary.xaml"/>
+        <ResourceDictionary Source="/Community;component/Themes/Styles/NeonTextDictionary.xaml"/>
+        <ResourceDictionary Source="/Community;component/Themes/Styles/BrokenNeonTextDictionary.xaml"/>
+        <ResourceDictionary Source="/Community;component/Themes/Styles/ButtonExDictionary.xaml"/>
+        <ResourceDictionary Source="/Community;component/Themes/Styles/WheresWallyDictionary.xaml"/>
+        <ResourceDictionary Source="/Community;component/Themes/Styles/BannerDictionary.xaml"/>
+        <ResourceDictionary Source="/Community;component/Themes/Styles/ThemeControlDictionary.xaml"/>
+        <ResourceDictionary Source="/Community;component/Themes/Styles/TypeWriterDictionary.xaml"/>
+        <ResourceDictionary Source="/Community;component/Themes/Styles/CrystalBallDictionary.xaml"/>
+        <ResourceDictionary Source="/Community;component/Themes/Styles/BrushesDictionary.xaml"/>
     </ResourceDictionary.MergedDictionaries>
 
     <Style TargetType="{x:Type local:DogsClock}">
@@ -58,39 +64,6 @@
             </Setter.Value>
         </Setter>
     </Style>
-
-    <Style TargetType="{x:Type local:WheresWally}">
-        <Setter Property="Template">
-            <Setter.Value>
-                <ControlTemplate TargetType="{x:Type local:WheresWally}">
-                    <Grid Background="{TemplateBinding Background}"
-                          Width="{TemplateBinding Width}"
-                          Height="{TemplateBinding Height}">
-                        <Image x:Name="PART_TopImage" Stretch="UniformToFill" Source="{Binding RelativeSource={RelativeSource TemplatedParent},Path=TopImage}"/>
-                        <Border>
-                            <Border.Effect>
-                                <BlurEffect Radius="50"/>
-                            </Border.Effect>
-                            <Image x:Name="PART_BottomImage" Stretch="UniformToFill" Source="{Binding RelativeSource={RelativeSource TemplatedParent},Path=BottomImage}">
-                                <Image.Clip>
-                                    <EllipseGeometry x:Name="PART_EllipseGeometry" RadiusX="100" RadiusY="100"/>
-                                </Image.Clip>
-                            </Image>
-                        </Border>
-                        <Image Stretch="UniformToFill" Source="{Binding RelativeSource={RelativeSource TemplatedParent},Path=BottomImage}">
-                            <Image.Clip>
-                                <EllipseGeometry x:Name="PART_EllipseGeometry2" RadiusX="80" RadiusY="80"/>
-                            </Image.Clip>
-                        </Image>
-                    </Grid>
-                </ControlTemplate>
-            </Setter.Value>
-        </Setter>
-    </Style>
-
-    
-
-    
 
     
 </ResourceDictionary>

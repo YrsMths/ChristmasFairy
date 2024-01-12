@@ -53,8 +53,22 @@ namespace Community.Helpers
 
     public class RandomDoubleCreator : RandomCreator<double>
     {
+        public RandomDoubleCreator() {}
+        public RandomDoubleCreator(int min, int max) { this.Min = min; this.Max = max; }
+
         private readonly Random _random = new Random((int)(DateTime.Now.Ticks & 0xffffffffL) | (int)(DateTime.Now.Ticks >> 32));
 
-        public override double Next => _random.NextDouble() * _random.Next(Convert.ToInt32(Math.Round(Max)));
+        public override double Next => _random.NextDouble();
+    }
+
+    public static class RandomHelper
+    {
+        public static int GetRandomSeed() //产生随机种子
+        {
+            byte[] bytes = new byte[4];
+            System.Security.Cryptography.RNGCryptoServiceProvider rng = new System.Security.Cryptography.RNGCryptoServiceProvider();
+            rng.GetBytes(bytes);
+            return BitConverter.ToInt32(bytes, 0);
+        }
     }
 }
