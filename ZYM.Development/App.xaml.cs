@@ -53,7 +53,7 @@ namespace ZYM.Development
                 }
             }
 #if DEBUG
-            new BarbieWindow().Show();
+            new TestWindow().Show();
 #endif
 #if RELEASE
             new MainWindow().Show();

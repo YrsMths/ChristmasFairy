@@ -51,8 +51,34 @@ namespace Community.Controls
             }
         }
 
-        public int CountX { get; set; } = 1;
-        public int CountY { get; set; } = 1;
+        int _PentacleSizeMin = 30;
+        public int PentacleSizeMin
+        {
+            get
+            {
+                return _PentacleSizeMin;
+            }
+            set
+            {
+                _PentacleSizeMin = value;
+            }
+        }
+
+        int _PentacleSizeMax = 50;
+        public int PentacleSizeMax
+        {
+            get
+            {
+                return _PentacleSizeMax;
+            }
+            set
+            {
+                _PentacleSizeMax = value;
+            }
+        }
+
+        private int CountX { get; set; } = 1;
+        private int CountY { get; set; } = 1;
 
         int[] pixelValues;
         int[] pixelValues_Spark;
@@ -68,15 +94,17 @@ namespace Community.Controls
             {
                 element.SizeChanged += (sender, args) =>
                 {
+                    CountX = (int)Math.Ceiling(args.NewSize.Width) + PentacleSizeMax;
+                    CountY = (int)Math.Ceiling(args.NewSize.Height) + PentacleSizeMax;
                     Canvas canvas = new Canvas();
                     canvas.Children.Add(Init());
 
                     Storyboard sb = new Storyboard();
-                    foreach (var point in BirdsonHelper.Generate((int)element.ActualWidth, (int)element.ActualHeight))
+                    foreach (var point in BirdsonHelper.Generate((int)element.ActualWidth - PentacleSizeMax, (int)element.ActualHeight - PentacleSizeMax))
                     {
-                        var pentacle = new Pentacle() { Radius = rand.Next(15, 25), NumofAngle = 6, UnitAngle = 5, Fill= System.Windows.Media.Brushes.White };
-                        Canvas.SetLeft(pentacle, point.X);
-                        Canvas.SetTop(pentacle, point.Y);
+                        var pentacle = new Pentacle() { Radius = rand.Next(PentacleSizeMin/2, PentacleSizeMax/2), NumofAngle = 6, UnitAngle = 5, Fill= System.Windows.Media.Brushes.White };
+                        Canvas.SetLeft(pentacle, point.X + PentacleSizeMax / 2);
+                        Canvas.SetTop(pentacle, point.Y + PentacleSizeMax / 2);
 
                         DoubleAnimation animation = new DoubleAnimation();//实例化浮点动画
                         pentacle.RenderTransform = new RotateTransform();//设置为旋转动画
@@ -97,8 +125,6 @@ namespace Community.Controls
                     canvas.MouseMove += MouseMove;
                     VisualBrush visualBrush = new VisualBrush() { Visual = canvas, Stretch=Stretch.Uniform };
                     element.SetValue(targetProperty, visualBrush);
-
-                    
                 };
                 element.Unloaded += (sneder, args) =>
                 {

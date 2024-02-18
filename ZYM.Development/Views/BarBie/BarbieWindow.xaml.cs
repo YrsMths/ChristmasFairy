@@ -39,7 +39,7 @@ namespace ZYM.Development.Views.Barbie
                 {
                     points.Add(new Point(p.X - point.X, p.Y - point.Y));
                 }
-                //鼠标绘制的路径     
+                //绘制路径 剪切图片    
                 List<LineSegment> segments = new List<LineSegment>();
                 foreach (var item in points)
                 {

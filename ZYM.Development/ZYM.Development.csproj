@@ -79,7 +79,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Views\BarBie\BarbieWindow.xaml.cs">
+    <Compile Include="Views\Barbie\BarbieWindow.xaml.cs">
       <DependentUpon>BarbieWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\BasicWindow\BasicWindow.cs" />
@@ -110,7 +110,7 @@
     <Compile Include="Views\Test\TestWindow.xaml.cs">
       <DependentUpon>TestWindow.xaml</DependentUpon>
     </Compile>
-    <Page Include="Views\BarBie\BarbieWindow.xaml">
+    <Page Include="Views\Barbie\BarbieWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -8,20 +8,10 @@
         xmlns:local="clr-namespace:ZYM.Development"
         xmlns:wpfdev="clr-namespace:Community.Controls;assembly=Community"
         mc:Ignorable="d"
-        Title="TestWindow" WindowStyle="None" Width="430" Height="430" WindowStartupLocation="CenterScreen" AllowsTransparency="True" Background="Transparent" Loaded="BasicWindow_Loaded">
+        Title="TestWindow" WindowStyle="None" Width="400" Height="400" WindowStartupLocation="CenterScreen" AllowsTransparency="True" Background="Transparent" Loaded="BasicWindow_Loaded">
     <Grid>
-        <wpfdev:Pentacle x:Name="pentacle" Radius="200" NumofAngle="60" UnitAngle="60" Fill="{wpfdev:SequinBrush Color=#ddd44d, CountX=500, CountY=500}">
-            <!--<Rectangle Width="400" Height="400">
-            <Rectangle.Fill>
-                <LinearGradientBrush StartPoint="0,0.5" EndPoint="0.5,0">
-                    <GradientStop Color="#50FFFFFF" Offset="0"/>
-                    <GradientStop Color="#FFFFFF" Offset="0.5"/>
-                    <GradientStop Color="#50FFFFFF" Offset="1"/>
-                </LinearGradientBrush>
-            </Rectangle.Fill>
-        </Rectangle>-->
-        </wpfdev:Pentacle>
-        <Image x:Name="image" Stretch="Uniform"/>
+        <wpfdev:Pentacle x:Name="pentacle" Radius="200" NumofAngle="90" UnitAngle="2" Fill="{wpfdev:SequinBrush Color=#ddd44d}"/>
+        <!--<Image x:Name="image" Stretch="Uniform"/>-->
     </Grid>
     
 </views:BasicWindow>
